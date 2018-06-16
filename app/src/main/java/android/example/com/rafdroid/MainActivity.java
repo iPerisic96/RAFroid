@@ -10,7 +10,6 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -67,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... urls) {
 
-            String result = "";
+            StringBuilder result = new StringBuilder();
             URL url;
             HttpURLConnection urlConnection = null;
 
@@ -75,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
                 url = new URL(urls[0]);
 
                 urlConnection = (HttpURLConnection) url.openConnection();
-
+                urlConnection.setRequestProperty("apikey","850nmHTsPyGL4MXNG2Hl");
                 InputStream in = urlConnection.getInputStream();
 
                 InputStreamReader reader = new InputStreamReader(in);
@@ -83,13 +82,13 @@ public class MainActivity extends AppCompatActivity {
                 int data = reader.read();
                 while (data != -1){
                     char current = (char) data;
-                    result += current;
+                    result.append(current);
                     data = reader.read();
                 }
-                return result;
+                return result.toString();
             } catch (MalformedURLException e) {
                 e.printStackTrace();
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
