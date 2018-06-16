@@ -1,0 +1,91 @@
+package android.example.com.rafdroid.Model;
+
+import java.util.ArrayList;
+import java.util.Date;
+
+public class Class {
+
+    private Subject subject;
+    private Professor profesor;
+    private String typeClass;
+    private ArrayList<Group> groups;
+    private Date start_time;
+    private Date end_time;
+    private Classroom classroom;
+    private String DayOfWeek;
+
+    public Class(Subject subject, Professor profesor, String typeClass, ArrayList<Group> groups, Date start_time, Date end_time, Classroom classroom, String dayOfWeek) {
+        this.subject = subject;
+        this.profesor = profesor;
+        this.typeClass = typeClass;
+        this.groups = groups;
+        this.start_time = start_time;
+        this.end_time = end_time;
+        this.classroom = classroom;
+        DayOfWeek = dayOfWeek;
+    }
+
+    public Subject getSubject() {
+        return subject;
+    }
+
+    public void setSubject(Subject subject) {
+        this.subject = subject;
+    }
+
+    public String getDayOfWeek() {
+        return DayOfWeek;
+    }
+
+    public void setDayOfWeek(String dayOfWeek) {
+        DayOfWeek = dayOfWeek;
+    }
+
+    public Professor getProfesor() {
+        return profesor;
+    }
+
+    public void setProfesor(Professor profesor) {
+        this.profesor = profesor;
+    }
+
+    public String getTypeClass() {
+        return typeClass;
+    }
+
+    public void setTypeClass(String typeClass) {
+        this.typeClass = typeClass;
+    }
+
+    public ArrayList<Group> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(ArrayList<Group> groups) {
+        this.groups = groups;
+    }
+
+    public Date getStart_time() {
+        return start_time;
+    }
+
+    public void setStart_time(Date start_time) {
+        this.start_time = start_time;
+    }
+
+    public Date getEnd_time() {
+        return end_time;
+    }
+
+    public void setEnd_time(Date end_time) {
+        this.end_time = end_time;
+    }
+
+    public Classroom getClassroom() {
+        return classroom;
+    }
+
+    public void setClassroom(Classroom classroom) {
+        this.classroom = classroom;
+    }
+}
