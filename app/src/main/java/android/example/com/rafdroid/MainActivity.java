@@ -1,5 +1,6 @@
 package android.example.com.rafdroid;
 
+import android.content.Intent;
 import android.example.com.rafdroid.Model.Class;
 import android.example.com.rafdroid.Model.Classroom;
 import android.example.com.rafdroid.Model.Group;
@@ -10,12 +11,13 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
+import android.view.View;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -36,6 +38,9 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Class> classes;
     private HashMap<String, Group> groups;
     private HashMap<String, Classroom> classrooms;
+    private CardView kalendarCard;
+    private CardView ispitiCard;
+    private CardView kolokvijumCard;
 
 
 
@@ -50,6 +55,12 @@ public class MainActivity extends AppCompatActivity {
         classrooms = new HashMap<>();
         classes = new ArrayList<>();
 
+        kalendarCard = (CardView) findViewById(R.id.kalendarCard);
+        ispitiCard = (CardView) findViewById(R.id.ispitiCard);
+        kolokvijumCard = (CardView) findViewById(R.id.klkCard);
+
+
+
         DownloadTask task = new DownloadTask();
         task.execute("https://rfidis.raf.edu.rs/raspored/json.php");
 
@@ -59,6 +70,14 @@ public class MainActivity extends AppCompatActivity {
         layoutParams.setBehavior(new BottomNavigationViewBehavior());
 
 //        navigation.setBehaviorTranslationEnabled(true);
+
+        kalendarCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, BasicActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     public class DownloadTask extends AsyncTask<String, Void, String> {
