@@ -88,4 +88,29 @@ public class Class {
     public void setClassroom(Classroom classroom) {
         this.classroom = classroom;
     }
+
+    public int getDayInWeek(){
+        int day = -1;
+
+        switch(getDayOfWeek()) {
+            case "PON":
+                day = 1;
+                break;
+            case "UTO":
+                day = 2;
+                break;
+            case "SRE":
+                day = 3;
+                break;
+            case "CET":
+                day = 4;
+                break;
+            case "PET":
+                day = 5;
+                break;
+
+        }
+
+        return day;
+    }
 }
