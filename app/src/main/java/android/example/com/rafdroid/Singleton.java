@@ -226,19 +226,19 @@ public class Singleton {
                 String termin = jsonPart.getString("date_and_time");
 
 
-                SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.HHmm");
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyydd.MM.HHmm");
                 try {
                     int crtica = termin.indexOf("|");
                     String datum = termin.substring(0, crtica);
                     String start = termin.substring(crtica+1, crtica + 3);
                     String end = termin.substring(crtica+4, crtica + 6);
-                    start_time = dateFormat.parse(datum + start+"00");
-                    end_time   = dateFormat.parse(datum + end+"00");
+                    start_time = dateFormat.parse("2018"+datum + start+"00");
+                    end_time   = dateFormat.parse("2018"+datum + end+"00");
 
                 } catch (ParseException e) {
                 }
 
-                exams.add(new Exam(name, start_time, end_time, classroom, professor, type));
+                exams.add(new Exam(i, name, start_time, end_time, classroom, professor, type));
             }
 
         } catch (JSONException e) {
@@ -401,4 +401,40 @@ public class Singleton {
         return type;
     }
 
+    public ArrayList<Exam> getExams() {
+        return exams;
+    }
+
+    public ArrayList<Exam> getExamsSearch(String search, String type) {
+
+        ArrayList<Exam> currentExams = new ArrayList();
+
+        for(Class cs : classes){
+
+            //NAZIV PREDMETA
+            if (cs.getSubject().getName().contains(search))
+                currentExams.add(getExam(cs.getSubject().getName(), type));
+
+                //NAZIV PROFESORA
+            else if (cs.getProfesor().getName().contains(search))
+                currentExams.add(getExam(cs.getSubject().getName(), type));
+
+            else{
+                for(Group gr : cs.getGroups())
+                    if (gr.getName().contains(search))
+                        currentExams.add(getExam(cs.getSubject().getName(), type));
+            }
+        }
+        return currentExams;
+    }
+
+    private Exam getExam(String name, String type){
+
+        for(Exam ex : exams){
+            if(ex.getName().equals(name) && ex.getType().equals(type))
+                return  ex;
+        }
+
+        return null;
+    }
 }

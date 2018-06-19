@@ -10,14 +10,24 @@ public class Exam {
     private Classroom classroom;
     private Professor professor;
     private String type;
+    private int id;
 
-    public Exam(String name, Date start_time, Date end_time, Classroom classroom, Professor professor, String type) {
+    public Exam(int id, String name, Date start_time, Date end_time, Classroom classroom, Professor professor, String type) {
         this.name = name;
         this.start_time = start_time;
         this.end_time = end_time;
         this.classroom = classroom;
         this.professor = professor;
         this.type = type;
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
