@@ -1,8 +1,6 @@
 package android.example.com.rafdroid;
 
 import android.content.Intent;
-import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -17,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
     private CardView kalendarCard;
     private CardView ispitiCard;
     private CardView kolokvijumCard;
+    private CardView konsultCard;
     private SearchView searchView;
 
 
@@ -34,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
         kalendarCard = (CardView) findViewById(R.id.kalendarCard);
         ispitiCard = (CardView) findViewById(R.id.ispitiCard);
         kolokvijumCard = (CardView) findViewById(R.id.klkCard);
+        konsultCard = (CardView) findViewById(R.id.konsultCard);
+
 
        // BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
 
@@ -45,7 +46,31 @@ public class MainActivity extends AppCompatActivity {
         kalendarCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, BasicActivity.class);
+                Intent intent = new Intent(MainActivity.this, PredavanjaActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        kolokvijumCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, KolokvijumiActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        ispitiCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, IspitiActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        konsultCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ConsultActivity.class);
                 startActivity(intent);
             }
         });

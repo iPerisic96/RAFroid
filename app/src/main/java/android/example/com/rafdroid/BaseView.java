@@ -39,6 +39,9 @@ public abstract class BaseView extends AppCompatActivity implements WeekView.Eve
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_kalendar_view);
 
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         // Get a reference for the week view in the layout.
         mWeekView = (WeekView) findViewById(R.id.weekView);
 
@@ -111,6 +114,8 @@ public abstract class BaseView extends AppCompatActivity implements WeekView.Eve
                     mWeekView.setEventTextSize((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 10, getResources().getDisplayMetrics()));
                 }
                 return true;
+            case android.R.id.home:
+                this.finish();
         }
 
         return super.onOptionsItemSelected(item);
@@ -174,7 +179,7 @@ public abstract class BaseView extends AppCompatActivity implements WeekView.Eve
         tv_className.setText(cl.getSubject().getName());
         tv_classType.setText(cl.getTypeClass());
         tv_classTime.setText(cl.getClassroom().getName() + ", " + hoursStart +":" + minStart + "-" + hoursEnd + ":" + minEnd + "0h");
-        tv_classGroup.setText(cl.getGroups().get(1).getName());
+        tv_classGroup.setText(cl.getGroupsString().toString());
         tv_classProf.setText(cl.getProfesor().getName());
 
         mBuilder.setView(myView);
