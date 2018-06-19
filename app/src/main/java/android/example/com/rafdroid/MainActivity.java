@@ -13,6 +13,10 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.SearchView;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 import org.json.JSONArray;
@@ -37,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private CardView kalendarCard;
     private CardView ispitiCard;
     private CardView kolokvijumCard;
+    private SearchView searchView;
 
 
 
@@ -48,14 +53,15 @@ public class MainActivity extends AppCompatActivity {
         Singleton singleton = Singleton.Instance();
         singleton.execute();
 
+        searchView = (SearchView) findViewById(R.id.search_view);
         kalendarCard = (CardView) findViewById(R.id.kalendarCard);
         ispitiCard = (CardView) findViewById(R.id.ispitiCard);
         kolokvijumCard = (CardView) findViewById(R.id.klkCard);
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+       // BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
 
-        CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) navigation.getLayoutParams();
-        layoutParams.setBehavior(new BottomNavigationViewBehavior());
+       // CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) navigation.getLayoutParams();
+        //layoutParams.setBehavior(new BottomNavigationViewBehavior());
 
 //        navigation.setBehaviorTranslationEnabled(true);
 
@@ -66,5 +72,13 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_activity_menu, menu);
+        MenuItem item = menu.findItem(R.id.action_search);
+        return super.onCreateOptionsMenu(menu);
     }
 }
