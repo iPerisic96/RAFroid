@@ -151,7 +151,7 @@ public class Singleton {
 //            e.printStackTrace();
 //        }
 //
-//        Log.d("Parsing JSON", "CLASSES - SUCCESSFULLY DONE");
+//        Log.d("Parsing JSON", "CALENDAR - SUCCESSFULLY DONE");
 
     }
     private void fillExams(String result){
@@ -205,13 +205,13 @@ public class Singleton {
             for (int i = 0; i < arr.length(); i++){
                 JSONObject jsonPart = arr.getJSONObject(i); //uzimamo i-ti objekat i pretvaramo ga u json obj
 
-                String predmet = jsonPart.getString("predmet");
-                String tip = jsonPart.getString("tip");
-                String nastavnik = jsonPart.getString("nastavnik");
-                String grupe = jsonPart.getString("grupe");
-                String dan = jsonPart.getString("dan");
-                String termin = jsonPart.getString("termin");
-                String ucionica = jsonPart.getString("ucionica");
+                String predmet = jsonPart.getString("class_name");
+                String tip = jsonPart.getString("type");
+                String nastavnik = jsonPart.getString("lecturer");
+                String grupe = jsonPart.getString("student_groups");
+                String dan = jsonPart.getString("day_of_week");
+                String termin = jsonPart.getString("time");
+                String ucionica = jsonPart.getString("classroom");
 
                 Subject subject;
                 if(subjects.containsKey(predmet))
