@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         Singleton singleton = Singleton.Instance();
         singleton.execute();
 
-        searchView = (SearchView) findViewById(R.id.search_view);
+        //searchView = (SearchView) findViewById(R.id.search_view);
 
         kalendarCard = (CardView) findViewById(R.id.kalendarCard);
         ispitiCard = (CardView) findViewById(R.id.ispitiCard);
@@ -78,9 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main_activity_menu, menu);
-        MenuItem item = menu.findItem(R.id.action_search);
-        return super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.main_activity_menu, menu);
+        return true;
     }
 }
