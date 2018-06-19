@@ -129,9 +129,8 @@ public class Class implements Serializable {
 
         String rez = "";
         for(Group gr : groups){
-            rez+= gr.getName();
+            rez+= gr.getName() + " ";
         }
-
         return rez;
     }
 }
