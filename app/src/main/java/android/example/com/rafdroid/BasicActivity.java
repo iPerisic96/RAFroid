@@ -54,7 +54,7 @@ public class BasicActivity extends BaseView {
             endTime.set(Calendar.MINUTE, minut);
             endTime.set(Calendar.MONTH, newMonth-1);
 
-            event = new WeekViewEvent(id++, cl.getSubject().getName() + "\n" + cl.getTypeClass(), startTime, endTime);
+            event = new WeekViewEvent(cl.getId(), cl.getSubject().getName() + "\n" + cl.getTypeClass(), startTime, endTime);
             event.setColor(getResources().getColor(R.color.event_color_02));
             events.add(event);
 

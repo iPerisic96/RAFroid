@@ -1,5 +1,6 @@
 package android.example.com.rafdroid;
 
+import android.example.com.rafdroid.Model.Class;
 import android.graphics.RectF;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -18,6 +19,7 @@ import com.alamkanak.weekview.MonthLoader;
 import com.alamkanak.weekview.WeekView;
 import com.alamkanak.weekview.WeekViewEvent;
 
+import java.security.Signature;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -149,6 +151,8 @@ public abstract class BaseView extends AppCompatActivity implements WeekView.Eve
     @Override
     public void onEventClick(WeekViewEvent event, RectF eventRect) {
        // Toast.makeText(this, "Clicked " + event.getName(), Toast.LENGTH_SHORT).show();
+        Singleton singleton = Singleton.Instance();
+        Class cl = singleton.getClassById((int) event.getId());
 
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(this);
         View myView = getLayoutInflater().inflate(R.layout.dialog_class, null);
