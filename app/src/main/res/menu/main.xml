@@ -15,13 +15,10 @@
     <group android:checkableBehavior="single">
         <item android:id="@+id/action_day_view"
             android:title="@string/action_day_view"
-            android:orderInCategory="100"
-            android:checked="true"/>
-        <item android:id="@+id/action_three_day_view"
-            android:title="@string/action_three_day_view"
-            android:orderInCategory="100" />
+            android:orderInCategory="100"/>
         <item android:id="@+id/action_week_view"
             android:title="@string/action_week_view"
-            android:orderInCategory="100" />
+            android:orderInCategory="100"
+            android:checked="true"/>
     </group>
 </menu>
