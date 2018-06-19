@@ -4,10 +4,12 @@ import android.graphics.RectF;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,34 +32,10 @@ public abstract class BaseView extends AppCompatActivity implements WeekView.Eve
     private int mWeekViewType = TYPE_THREE_DAY_VIEW;
     private WeekView mWeekView;
 
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
-                    return true;
-                case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_dashboard);
-                    return true;
-                case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
-                    return true;
-            }
-            return false;
-        }
-    };
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_kalendar_view);
-
-        mTextMessage = (TextView) findViewById(R.id.message);
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         // Get a reference for the week view in the layout.
         mWeekView = (WeekView) findViewById(R.id.weekView);
@@ -170,7 +148,21 @@ public abstract class BaseView extends AppCompatActivity implements WeekView.Eve
 
     @Override
     public void onEventClick(WeekViewEvent event, RectF eventRect) {
-        Toast.makeText(this, "Clicked " + event.getName(), Toast.LENGTH_SHORT).show();
+       // Toast.makeText(this, "Clicked " + event.getName(), Toast.LENGTH_SHORT).show();
+
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(this);
+        View myView = getLayoutInflater().inflate(R.layout.dialog_class, null);
+        TextView tv_className = (TextView) myView.findViewById(R.id.class_name);
+        TextView tv_classType = (TextView) myView.findViewById(R.id.class_type);
+        TextView tv_classTime = (TextView) myView.findViewById(R.id.class_time); //ucionica, vreme (U2, 12:15-14:00h)
+        TextView tv_classGroup = (TextView) myView.findViewById(R.id.class_group);
+        TextView tv_classProf = (TextView) myView.findViewById(R.id.class_prof);
+
+        mBuilder.setView(myView);
+        AlertDialog dialog = mBuilder.create();
+        dialog.setCancelable(true);
+        dialog.show();
+
     }
 
     @Override
