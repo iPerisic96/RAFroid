@@ -158,8 +158,6 @@ public abstract class BaseView extends AppCompatActivity implements WeekView.Eve
         TextView tv_classGroup = (TextView) myView.findViewById(R.id.class_group);
         TextView tv_classProf = (TextView) myView.findViewById(R.id.class_prof);
 
-        tv_className.setText(event.);
-
         mBuilder.setView(myView);
         AlertDialog dialog = mBuilder.create();
         dialog.setCancelable(true);
