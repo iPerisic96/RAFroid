@@ -1,6 +1,8 @@
 package android.example.com.rafdroid.Model;
 
-public class Classroom {
+import java.io.Serializable;
+
+public class Classroom implements Serializable {
 
     private String name;
 
