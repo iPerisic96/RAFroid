@@ -22,8 +22,17 @@
         </activity>
         <activity android:name=".MainActivity" />
         <activity
-            android:name=".BasicActivity"
-            android:label="@string/title_activity_basic"></activity>
+            android:name=".PredavanjaActivity"
+            android:label="Predavanja" />
+        <activity
+            android:name=".KolokvijumiActivity"
+            android:label="Kolokvijumi" />
+        <activity
+            android:name=".IspitiActivity"
+            android:label="Ispiti" />
+        <activity
+            android:name=".ConsultActivity"
+            android:label="Konsultacije" />
     </application>
 
 </manifest>
