@@ -123,35 +123,37 @@ public class Singleton {
 
 
     private void fillCalendar(String result){
-//        try {
-//            JSONObject jsonObject = new JSONObject(result);
-//            JSONArray arr = new JSONArray(jsonObject.getString("calendar"));
-//
-//            for (int i = 0; i < arr.length(); i++){
-//                JSONObject jsonPart = arr.getJSONObject(i);
-//
-//                String start = jsonPart.getString("start_date");
-//                String end = jsonPart.getString("end_date");
-//                String type = jsonPart.getString("type");
-//
-//
-//                Date dateFrom = new Date();
-//                Date dateTo = new Date();
-//                SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm");
-//                try {
-//                    dateFrom = dateFormat.parse(termin.substring(0, termin.indexOf("-")));
-//                    dateTo   = dateFormat.parse(termin.substring(termin.indexOf("-") + 1) + ":00");
-//
-//                } catch (ParseException e) {
-//                }
-//
-//            }
-//
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//
-//        Log.d("Parsing JSON", "CALENDAR - SUCCESSFULLY DONE");
+        try {
+            JSONObject jsonObject = new JSONObject(result);
+            JSONArray arr = new JSONArray(jsonObject.getString("schedule"));
+
+            for (int i = 0; i < arr.length(); i++){
+                JSONObject jsonPart = arr.getJSONObject(i);
+
+                String start = jsonPart.getString("start_date");
+                String end = jsonPart.getString("end_date");
+                String type = jsonPart.getString("type");
+
+
+                Date dateFrom = new Date();
+                Date dateTo = new Date();
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+                try {
+                    dateFrom = dateFormat.parse(start);
+                    dateTo   = dateFormat.parse(end);
+
+                } catch (ParseException e) {
+                }
+
+                Log.d("TIMEEEE", dateFrom + " " + dateTo);
+
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.d("Parsing JSON", "CALENDAR - SUCCESSFULLY DONE");
 
     }
     private void fillExams(String result){
