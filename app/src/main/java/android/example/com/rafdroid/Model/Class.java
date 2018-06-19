@@ -113,7 +113,7 @@ public class Class implements Serializable {
             case "SRE":
                 day = 3;
                 break;
-            case "CET":
+            case "ČET":
                 day = 4;
                 break;
             case "PET":

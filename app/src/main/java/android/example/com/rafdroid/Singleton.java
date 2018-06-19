@@ -2,6 +2,8 @@ package android.example.com.rafdroid;
 
 import android.example.com.rafdroid.Model.Class;
 import android.example.com.rafdroid.Model.Classroom;
+import android.example.com.rafdroid.Model.Consultation;
+import android.example.com.rafdroid.Model.Day;
 import android.example.com.rafdroid.Model.Exam;
 import android.example.com.rafdroid.Model.Group;
 import android.example.com.rafdroid.Model.Professor;
@@ -27,10 +29,13 @@ public class Singleton {
 
     private HashMap<String, Subject> subjects;
     private HashMap<String, Professor> professors;
-    private ArrayList<Class> classes;
-    private ArrayList<Exam> exams;
     private HashMap<String, Group> groups;
     private HashMap<String, Classroom> classrooms;
+    private ArrayList<Class> classes;
+    private ArrayList<Exam> exams;
+    private ArrayList<Day> days;
+    private ArrayList<Consultation> consultations;
+
     private CardView kalendarCard;
     private CardView ispitiCard;
     private CardView kolokvijumCard;
@@ -53,7 +58,8 @@ public class Singleton {
         classrooms = new HashMap<>();
         classes = new ArrayList<>();
         exams = new ArrayList<>();
-
+        days = new ArrayList<>();
+        consultations = new ArrayList<>();
 
 //        try {
 //
@@ -119,9 +125,56 @@ public class Singleton {
         };
         taskCalendar.execute("https://api.raf.ninja/v1/calendar");
 
+        DownloadTask taskConsultations = new DownloadTask() {
+
+            @Override
+            protected void onPostExecute(String result) {
+                super.onPostExecute(result);
+
+                fillConsultations(result);
+
+            }
+
+        };
+        taskConsultations.execute("https://api.raf.ninja/v1/consultations");
+
     }
 
+    private void fillConsultations(String result){
 
+        try {
+            JSONObject jsonObject = new JSONObject(result);
+            JSONArray arr = new JSONArray(jsonObject.getString("schedule"));
+
+            for (int i = 0; i < arr.length(); i++){
+                JSONObject jsonPart = arr.getJSONObject(i);
+
+                String dayInWeek = jsonPart.getString("day");;
+                Date start_date = new Date(0);
+                Date end_date   = new Date(0);
+                Professor professor = new Professor(jsonPart.getString("lecturer"));
+                String cl = jsonPart.getString("class_name");
+                Classroom classroom = new Classroom(jsonPart.getString("classroom"));
+
+                String vreme = jsonPart.getString("time");
+
+                SimpleDateFormat dateFormat = new SimpleDateFormat("hh");
+                try {
+                    start_date = dateFormat.parse(vreme.substring(0, 2));
+                    end_date   = dateFormat.parse(vreme.substring(3));
+
+                } catch (ParseException e) {
+                }
+
+                consultations.add(new Consultation(i, dayInWeek, start_date, end_date, professor, cl, classroom));
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.d("Parsing JSON", "CONSULTATIONS - SUCCESSFULLY DONE");
+    }
     private void fillCalendar(String result){
         try {
             JSONObject jsonObject = new JSONObject(result);
@@ -135,8 +188,8 @@ public class Singleton {
                 String type = jsonPart.getString("type");
 
 
-                Date dateFrom = new Date();
-                Date dateTo = new Date();
+                Date dateFrom = new Date(0);
+                Date dateTo = new Date(0);
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
                 try {
                     dateFrom = dateFormat.parse(start);
@@ -145,8 +198,7 @@ public class Singleton {
                 } catch (ParseException e) {
                 }
 
-                Log.d("TIMEEEE", dateFrom + " " + dateTo);
-
+            days.add(new Day(dateFrom, dateTo, type));
             }
 
         } catch (JSONException e) {
@@ -186,10 +238,7 @@ public class Singleton {
                 } catch (ParseException e) {
                 }
 
-                Exam exam = new Exam(name, start_time, end_time, classroom, professor, type);
-
-                exams.add(exam);
-
+                exams.add(new Exam(name, start_time, end_time, classroom, professor, type));
             }
 
         } catch (JSONException e) {
@@ -265,6 +314,9 @@ public class Singleton {
                 classes.add(new android.example.com.rafdroid.Model.Class(i, subject ,professor, tip, groupsArray, dateFrom, dateTo, classroom, dan));
             }
 
+        ArrayList<Class> bla = getAllClassesForGroup("103");
+            int av = 5;
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -335,6 +387,18 @@ public class Singleton {
                 return cl;
         }
         return null;
+    }
+
+    public String getDayType(Date current){
+        String type = "";
+
+        for(Day day : days){
+            if(!current.before(day.getStart_date()) && !current.after(day.getEnd_date())){
+                type = day.getType();
+            }
+        }
+
+        return type;
     }
 
 }

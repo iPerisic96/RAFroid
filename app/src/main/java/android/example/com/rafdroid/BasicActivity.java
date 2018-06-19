@@ -22,7 +22,7 @@ public class BasicActivity extends BaseView {
         List<WeekViewEvent> events = new ArrayList<WeekViewEvent>();
 
         Singleton singleton = Singleton.Instance();
-        ArrayList<Class> classes = singleton.getAllClassesForGroup("309");
+        ArrayList<Class> classes = singleton.getAllClassesForGroup("103");
         Calendar calendarPom = GregorianCalendar.getInstance();
 
         Calendar startTime = Calendar.getInstance();
