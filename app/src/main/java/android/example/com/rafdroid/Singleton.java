@@ -2,6 +2,7 @@ package android.example.com.rafdroid;
 
 import android.example.com.rafdroid.Model.Class;
 import android.example.com.rafdroid.Model.Classroom;
+import android.example.com.rafdroid.Model.Exam;
 import android.example.com.rafdroid.Model.Group;
 import android.example.com.rafdroid.Model.Professor;
 import android.example.com.rafdroid.Model.Subject;
@@ -27,6 +28,7 @@ public class Singleton {
     private HashMap<String, Subject> subjects;
     private HashMap<String, Professor> professors;
     private ArrayList<Class> classes;
+    private ArrayList<Exam> exams;
     private HashMap<String, Group> groups;
     private HashMap<String, Classroom> classrooms;
     private CardView kalendarCard;
@@ -50,6 +52,7 @@ public class Singleton {
         groups = new HashMap<>();
         classrooms = new HashMap<>();
         classes = new ArrayList<>();
+        exams = new ArrayList<>();
 
 
 //        try {
@@ -77,7 +80,7 @@ public class Singleton {
 
     public void execute(){
 
-        DownloadTask task = new DownloadTask() {
+        DownloadTask taskClassis = new DownloadTask() {
 
             @Override
             protected void onPostExecute(String result) {
@@ -88,15 +91,116 @@ public class Singleton {
             }
 
         };
-        task.execute("https://rfidis.raf.edu.rs/raspored/json.php");
+        taskClassis.execute("https://api.raf.ninja/v1/classes");
+
+        DownloadTask taskExams = new DownloadTask() {
+
+            @Override
+            protected void onPostExecute(String result) {
+                super.onPostExecute(result);
+
+                fillExams(result);
+
+            }
+
+        };
+        taskExams.execute("https://api.raf.ninja/v1/exams");
+
+        DownloadTask taskCalendar = new DownloadTask() {
+
+            @Override
+            protected void onPostExecute(String result) {
+                super.onPostExecute(result);
+
+                fillCalendar(result);
+
+            }
+
+        };
+        taskCalendar.execute("https://api.raf.ninja/v1/calendar");
 
     }
 
-    private void fillClasses(String result){
-        //pisati ovde kako bismo mogli da apdejtujemo UI jer doInBackground nece moci jer koristi
-        try {
 
-            JSONArray arr = new JSONArray(result);
+    private void fillCalendar(String result){
+//        try {
+//            JSONObject jsonObject = new JSONObject(result);
+//            JSONArray arr = new JSONArray(jsonObject.getString("calendar"));
+//
+//            for (int i = 0; i < arr.length(); i++){
+//                JSONObject jsonPart = arr.getJSONObject(i);
+//
+//                String start = jsonPart.getString("start_date");
+//                String end = jsonPart.getString("end_date");
+//                String type = jsonPart.getString("type");
+//
+//
+//                Date dateFrom = new Date();
+//                Date dateTo = new Date();
+//                SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm");
+//                try {
+//                    dateFrom = dateFormat.parse(termin.substring(0, termin.indexOf("-")));
+//                    dateTo   = dateFormat.parse(termin.substring(termin.indexOf("-") + 1) + ":00");
+//
+//                } catch (ParseException e) {
+//                }
+//
+//            }
+//
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//
+//        Log.d("Parsing JSON", "CLASSES - SUCCESSFULLY DONE");
+
+    }
+    private void fillExams(String result){
+        try {
+            JSONObject jsonObject = new JSONObject(result);
+            JSONArray arr = new JSONArray(jsonObject.getString("schedule"));
+
+            for (int i = 0; i < arr.length(); i++){
+                JSONObject jsonPart = arr.getJSONObject(i);
+
+                String name = jsonPart.getString("test_name");
+                Date start_time = new Date();
+                Date end_time = new Date();
+                Classroom classroom = new Classroom(jsonPart.getString("classroom"));
+                Professor professor = new Professor(jsonPart.getString("professor"));
+                String type = jsonPart.getString("type");
+
+                String termin = jsonPart.getString("date_and_time");
+
+
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.HHmm");
+                try {
+                    int crtica = termin.indexOf("|");
+                    String datum = termin.substring(0, crtica);
+                    String start = termin.substring(crtica+1, crtica + 3);
+                    String end = termin.substring(crtica+4, crtica + 6);
+                    start_time = dateFormat.parse(datum + start+"00");
+                    end_time   = dateFormat.parse(datum + end+"00");
+
+                } catch (ParseException e) {
+                }
+
+                Exam exam = new Exam(name, start_time, end_time, classroom, professor, type);
+
+                exams.add(exam);
+
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.d("Parsing JSON", "EXAM - SUCCESSFULLY DONE");
+
+    }
+    private void fillClasses(String result){
+        try {
+            JSONObject jsonObject = new JSONObject(result);
+            JSONArray arr = new JSONArray(jsonObject.getString("schedule"));
 
             for (int i = 0; i < arr.length(); i++){
                 JSONObject jsonPart = arr.getJSONObject(i); //uzimamo i-ti objekat i pretvaramo ga u json obj
@@ -156,14 +260,14 @@ public class Singleton {
                     classroom = new Classroom(ucionica);
                     classrooms.put(ucionica, classroom);
                 }
-                classes.add(new android.example.com.rafdroid.Model.Class(subject ,professor, tip, groupsArray, dateFrom, dateTo, classroom, dan));
+                classes.add(new android.example.com.rafdroid.Model.Class(i, subject ,professor, tip, groupsArray, dateFrom, dateTo, classroom, dan));
             }
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        Log.d("Parsing JSON", "SUCCESSFULLY DONE");
+        Log.d("Parsing JSON", "CLASSES - SUCCESSFULLY DONE");
     }
 
     public ArrayList<Class> getAllSearchResults(String search){
@@ -221,6 +325,14 @@ public class Singleton {
         }
 
         return currentClasses;
+    }
+
+    public Class getClassById(int id){
+        for(Class cl : classes){
+            if(cl.getId() == id)
+                return cl;
+        }
+        return null;
     }
 
 }

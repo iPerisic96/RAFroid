@@ -14,8 +14,10 @@ public class Class implements Serializable {
     private Date end_time;
     private Classroom classroom;
     private String DayOfWeek;
+    private int id;
 
-    public Class(Subject subject, Professor profesor, String typeClass, ArrayList<Group> groups, Date start_time, Date end_time, Classroom classroom, String dayOfWeek) {
+    public Class(int id, Subject subject, Professor profesor, String typeClass, ArrayList<Group> groups, Date start_time, Date end_time, Classroom classroom, String dayOfWeek) {
+        this.id = id;
         this.subject = subject;
         this.profesor = profesor;
         this.typeClass = typeClass;
@@ -24,6 +26,14 @@ public class Class implements Serializable {
         this.end_time = end_time;
         this.classroom = classroom;
         DayOfWeek = dayOfWeek;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Subject getSubject() {
