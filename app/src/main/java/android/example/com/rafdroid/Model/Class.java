@@ -1,9 +1,10 @@
 package android.example.com.rafdroid.Model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Class {
+public class Class implements Serializable {
 
     private Subject subject;
     private Professor profesor;
