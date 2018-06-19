@@ -154,6 +154,15 @@ public abstract class BaseView extends AppCompatActivity implements WeekView.Eve
         Singleton singleton = Singleton.Instance();
         Class cl = singleton.getClassById((int) event.getId());
 
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(cl.getStart_time());
+        int hoursStart = cal.get(Calendar.HOUR_OF_DAY);
+        int minStart = cal.get(Calendar.MINUTE);
+
+        cal.setTime(cl.getEnd_time());
+        int hoursEnd = cal.get(Calendar.HOUR_OF_DAY);
+        int minEnd = cal.get(Calendar.MINUTE);
+
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(this);
         View myView = getLayoutInflater().inflate(R.layout.dialog_class, null);
         TextView tv_className = (TextView) myView.findViewById(R.id.class_name);
@@ -161,6 +170,12 @@ public abstract class BaseView extends AppCompatActivity implements WeekView.Eve
         TextView tv_classTime = (TextView) myView.findViewById(R.id.class_time); //ucionica, vreme (U2, 12:15-14:00h)
         TextView tv_classGroup = (TextView) myView.findViewById(R.id.class_group);
         TextView tv_classProf = (TextView) myView.findViewById(R.id.class_prof);
+
+        tv_className.setText(cl.getSubject().getName());
+        tv_classType.setText(cl.getTypeClass());
+        tv_classTime.setText(cl.getClassroom().getName() + ", " + hoursStart +":" + minStart + "-" + hoursEnd + ":" + minEnd + "0h");
+        tv_classGroup.setText(cl.getGroups().get(1).getName());
+        tv_classProf.setText(cl.getProfesor().getName());
 
         mBuilder.setView(myView);
         AlertDialog dialog = mBuilder.create();
