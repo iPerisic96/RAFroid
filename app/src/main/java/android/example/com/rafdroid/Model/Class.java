@@ -124,4 +124,13 @@ public class Class implements Serializable {
 
         return day;
     }
+
+    public String getGroupsString(){
+
+        String rez = "";
+        for(Group gr : groups){
+            rez+= gr.getName() + " ";
+        }
+        return rez;
+    }
 }
