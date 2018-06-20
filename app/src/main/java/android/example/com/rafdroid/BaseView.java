@@ -59,8 +59,19 @@ public abstract class BaseView extends AppCompatActivity implements WeekView.Eve
 
         // Set up a date time interpreter to interpret how the date and time will be formatted in
         // the week view. This is optional.
-        setupDateTimeInterpreter(true);
+        setupDateTimeInterpreter(false);
 
+
+
+    }
+
+    public void refreshScreen(){
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.DAY_OF_MONTH, 22);
+        cal.set(Calendar.MONTH, 9);
+        cal.set(Calendar.YEAR, 2018);
+        mWeekView.goToDate(cal);
+        mWeekView.goToHour(14);
     }
 
     @Override
@@ -68,7 +79,7 @@ public abstract class BaseView extends AppCompatActivity implements WeekView.Eve
         getMenuInflater().inflate(R.menu.main, menu);
         MenuItem searchItem = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) searchItem.getActionView();
-        searchView.setQuery("", true);
+
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override

@@ -67,7 +67,7 @@ public class PredavanjaActivity extends BaseView {
             events.add(event);
 
         }
-
+        this.refreshScreen();
         return events;
     }
 

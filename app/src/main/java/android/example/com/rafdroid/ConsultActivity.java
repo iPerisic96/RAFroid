@@ -64,6 +64,7 @@ public class ConsultActivity extends BaseView {
 
         }
 
+        this.refreshScreen();
         return events;
     }
 }
