@@ -158,7 +158,7 @@ public class Singleton {
 
                 String vreme = jsonPart.getString("time");
 
-                SimpleDateFormat dateFormat = new SimpleDateFormat("hh");
+                SimpleDateFormat dateFormat = new SimpleDateFormat("HH");
                 try {
                     start_date = dateFormat.parse(vreme.substring(0, 2));
                     end_date   = dateFormat.parse(vreme.substring(3));
@@ -296,7 +296,7 @@ public class Singleton {
 
                 Date dateFrom = new Date();
                 Date dateTo = new Date();
-                SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm");
+                SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
                 try {
                     dateFrom = dateFormat.parse(termin.substring(0, termin.indexOf("-")));
                     dateTo   = dateFormat.parse(termin.substring(termin.indexOf("-") + 1) + ":00");
@@ -436,5 +436,9 @@ public class Singleton {
         }
 
         return null;
+    }
+
+    public ArrayList<Consultation> getAllConsultations() {
+        return consultations;
     }
 }
