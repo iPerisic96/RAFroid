@@ -39,7 +39,8 @@ public class ConsultActivity extends BaseView {
             startTime.set(Calendar.MINUTE, minut);
             startTime.set(Calendar.MONTH, newMonth-1);
             startTime.set(Calendar.YEAR, newYear);
-            startTime.set(Calendar.DAY_OF_MONTH, startTime.get(Calendar.DAY_OF_MONTH) + cons.getDayInWeek());
+//            startTime.set(Calendar.DAY_OF_MONTH, startTime.get(Calendar.DAY_OF_MONTH));
+            startTime.set(Calendar.DAY_OF_WEEK, cons.getDayInWeek() + 1);
 
 
             sat = cons.getEnd_time().getHours();

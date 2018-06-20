@@ -60,17 +60,17 @@ public abstract class BaseView extends AppCompatActivity implements WeekView.Eve
         mWeekView.setEmptyViewLongPressListener(this);
 
 
-        mWeekView.setFirstDayOfWeek(0);
-        Date date = new Date();
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(date);
+//        mWeekView.setFirstDayOfWeek(Calendar.MONDAY);
+//        Date date = new Date();
+//        Calendar cal = Calendar.getInstance();
+//        cal.setTime(date);
 
 
 
 //        int dayInWeek = date.get(Calendar.DAY_OF_WEEK);
 //
 //        mWeekView.goToDate();
-        mWeekView.goToHour(12);
+//        mWeekView.goToHour(12);
 
         // Set up a date time interpreter to interpret how the date and time will be formatted in
         // the week view. This is optional.
@@ -143,7 +143,7 @@ public abstract class BaseView extends AppCompatActivity implements WeekView.Eve
 
                 int dayOfWeek = date.get(Calendar.DAY_OF_WEEK);
                 String day = "";
-                switch(dayOfWeek % 7) {
+                switch((dayOfWeek - 2) % 7) {
                     case 0:
                         day = "PON";
                         break;
@@ -162,7 +162,7 @@ public abstract class BaseView extends AppCompatActivity implements WeekView.Eve
                     case 5:
                         day = "SUB";
                         break;
-                    case 6:
+                    default:
                         day = "NED";
                         break;
                 }

@@ -22,7 +22,7 @@ public class PredavanjaActivity extends BaseView {
         List<WeekViewEvent> events = new ArrayList<WeekViewEvent>();
 
         Singleton singleton = Singleton.Instance();
-        ArrayList<Class> classes = singleton.getAllClassesForGroup("103");
+        ArrayList<Class> classes = singleton.getAllClassesForGroup("309");
         Calendar calendarPom = GregorianCalendar.getInstance();
 
         Calendar startTime = Calendar.getInstance();
@@ -43,8 +43,8 @@ public class PredavanjaActivity extends BaseView {
             startTime.set(Calendar.MINUTE, minut);
             startTime.set(Calendar.MONTH, newMonth-1);
             startTime.set(Calendar.YEAR, newYear);
-            startTime.set(Calendar.DAY_OF_MONTH, startTime.get(Calendar.DAY_OF_MONTH));
-            startTime.set(Calendar.DAY_OF_WEEK, cl.getDayInWeek() - 1);
+//            startTime.set(Calendar.DAY_OF_MONTH, startTime.get(Calendar.DAY_OF_MONTH));
+            startTime.set(Calendar.DAY_OF_WEEK, cl.getDayInWeek() + 1);
 
 
             sat = cl.getEnd_time().getHours();
