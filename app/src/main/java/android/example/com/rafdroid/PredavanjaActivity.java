@@ -24,6 +24,8 @@ public class PredavanjaActivity extends BaseView {
         Singleton singleton = Singleton.Instance();
         ArrayList<Class> classes = singleton.getAllSearchResults(singleton.getSearchQuery());
         Calendar calendarPom = GregorianCalendar.getInstance();
+        singleton.setTrenutnoOtvoreni("p");
+
 
         Calendar startTime = Calendar.getInstance();
         Calendar endTime   = Calendar.getInstance();

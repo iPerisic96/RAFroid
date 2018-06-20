@@ -20,6 +20,7 @@ public class ConsultActivity extends BaseView {
         Singleton singleton = Singleton.Instance();
         ArrayList<Consultation> consultation = singleton.getAllConsultations();
         Calendar calendarPom = GregorianCalendar.getInstance();
+        singleton.setTrenutnoOtvoreni("k");
 
         Calendar startTime = Calendar.getInstance();
         Calendar endTime   = Calendar.getInstance();

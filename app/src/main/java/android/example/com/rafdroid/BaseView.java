@@ -2,6 +2,8 @@ package android.example.com.rafdroid;
 
 import android.content.Context;
 import android.example.com.rafdroid.Model.Class;
+import android.example.com.rafdroid.Model.Consultation;
+import android.example.com.rafdroid.Model.Exam;
 import android.graphics.RectF;
 import android.os.Bundle;
 import android.provider.CalendarContract;
@@ -221,35 +223,78 @@ public abstract class BaseView extends AppCompatActivity implements WeekView.Eve
     public void onEventClick(WeekViewEvent event, RectF eventRect) {
        // Toast.makeText(this, "Clicked " + event.getName(), Toast.LENGTH_SHORT).show();
         Singleton singleton = Singleton.Instance();
-        Class cl = singleton.getClassById((int) event.getId());
 
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(cl.getStart_time());
-        int hoursStart = cal.get(Calendar.HOUR_OF_DAY);
-        int minStart = cal.get(Calendar.MINUTE);
+        if(singleton.getTrenutnoOtvoreni().equals("p")) {
+            Class cl = singleton.getClassById((int) event.getId());
 
-        cal.setTime(cl.getEnd_time());
-        int hoursEnd = cal.get(Calendar.HOUR_OF_DAY);
-        int minEnd = cal.get(Calendar.MINUTE);
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(cl.getStart_time());
+            int hoursStart = cal.get(Calendar.HOUR_OF_DAY);
+            int minStart = cal.get(Calendar.MINUTE);
 
-        AlertDialog.Builder mBuilder = new AlertDialog.Builder(this);
-        View myView = getLayoutInflater().inflate(R.layout.dialog_class, null);
-        TextView tv_className = (TextView) myView.findViewById(R.id.class_name);
-        TextView tv_classType = (TextView) myView.findViewById(R.id.class_type);
-        TextView tv_classTime = (TextView) myView.findViewById(R.id.class_time); //ucionica, vreme (U2, 12:15-14:00h)
-        TextView tv_classGroup = (TextView) myView.findViewById(R.id.class_group);
-        TextView tv_classProf = (TextView) myView.findViewById(R.id.class_prof);
+            cal.setTime(cl.getEnd_time());
+            int hoursEnd = cal.get(Calendar.HOUR_OF_DAY);
+            int minEnd = cal.get(Calendar.MINUTE);
 
-        tv_className.setText(cl.getSubject().getName());
-        tv_classType.setText(cl.getTypeClass());
-        tv_classTime.setText(cl.getClassroom().getName() + ", " + hoursStart +":" + minStart + "-" + hoursEnd + ":" + minEnd + "0h");
-        tv_classGroup.setText(cl.getGroupsString().toString());
-        tv_classProf.setText(cl.getProfesor().getName());
+            AlertDialog.Builder mBuilder = new AlertDialog.Builder(this);
+            View myView = getLayoutInflater().inflate(R.layout.dialog_class, null);
+            TextView tv_className = (TextView) myView.findViewById(R.id.class_name);
+            TextView tv_classType = (TextView) myView.findViewById(R.id.class_type);
+            TextView tv_classTime = (TextView) myView.findViewById(R.id.class_time); //ucionica, vreme (U2, 12:15-14:00h)
+            TextView tv_classGroup = (TextView) myView.findViewById(R.id.class_group);
+            TextView tv_classProf = (TextView) myView.findViewById(R.id.class_prof);
 
-        mBuilder.setView(myView);
-        AlertDialog dialog = mBuilder.create();
-        dialog.setCancelable(true);
-        dialog.show();
+            tv_className.setText(cl.getSubject().getName());
+            tv_classType.setText(cl.getTypeClass());
+            tv_classTime.setText(cl.getClassroom().getName() + ", " + hoursStart + ":" + minStart + "-" + hoursEnd + ":" + minEnd + "0h");
+            tv_classGroup.setVisibility(View.VISIBLE);
+            tv_classProf.setVisibility(View.VISIBLE);
+            tv_classGroup.setText(cl.getGroupsString().toString());
+            tv_classProf.setText(cl.getProfesor().getName());
+
+            mBuilder.setView(myView);
+            AlertDialog dialog = mBuilder.create();
+            dialog.setCancelable(true);
+            dialog.show();
+        }
+
+        else{
+
+            Consultation cons = singleton.getConsultationById((int) event.getId());
+
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(cons.getStart_time());
+            int hoursStart = cal.get(Calendar.HOUR_OF_DAY);
+            int minStart = cal.get(Calendar.MINUTE);
+
+            cal.setTime(cons.getEnd_time());
+            int hoursEnd = cal.get(Calendar.HOUR_OF_DAY);
+            int minEnd = cal.get(Calendar.MINUTE);
+
+            AlertDialog.Builder mBuilder = new AlertDialog.Builder(this);
+            View myView = getLayoutInflater().inflate(R.layout.dialog_class, null);
+            TextView tv_className = (TextView) myView.findViewById(R.id.class_name);
+            TextView tv_classType = (TextView) myView.findViewById(R.id.class_type);
+            TextView tv_classTime = (TextView) myView.findViewById(R.id.class_time); //ucionica, vreme (U2, 12:15-14:00h)
+            TextView tv_classGroup = (TextView) myView.findViewById(R.id.class_group);
+            TextView tv_classProf = (TextView) myView.findViewById(R.id.class_prof);
+
+            tv_className.setText(cons.getClass_name());
+            tv_classType.setText(cons.getProfessor().getName());
+            tv_classTime.setText(cons.getClassroom().getName() + ", " + hoursStart + ":0" + minStart + "-" + hoursEnd + ":" + minEnd + "0h");
+//            tv_classGroup.setText(cl.getGroupsString().toString());
+//            tv_classProf.setText(cl.getProfesor().getName());
+            tv_classGroup.setVisibility(View.INVISIBLE);
+            tv_classProf.setVisibility(View.INVISIBLE);
+
+            mBuilder.setView(myView);
+            AlertDialog dialog = mBuilder.create();
+            dialog.setCancelable(true);
+            dialog.show();
+
+
+
+        }
 
     }
 

@@ -48,6 +48,8 @@ public class Singleton {
 
     private String searchQuery;
 
+    private String trenutnoOtvoreni;
+
 
 
     private Singleton(){
@@ -63,6 +65,7 @@ public class Singleton {
         days = new ArrayList<>();
         consultations = new ArrayList<>();
         searchQuery = "";
+        trenutnoOtvoreni = "";
 
 //        try {
 //
@@ -465,5 +468,13 @@ public class Singleton {
 
     public void setSearchQuery(String searchQuery) {
         this.searchQuery = searchQuery;
+    }
+
+    public String getTrenutnoOtvoreni() {
+        return trenutnoOtvoreni;
+    }
+
+    public void setTrenutnoOtvoreni(String trenutnoOtvoreni) {
+        this.trenutnoOtvoreni = trenutnoOtvoreni;
     }
 }
