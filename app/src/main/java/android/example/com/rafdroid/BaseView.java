@@ -22,6 +22,7 @@ import com.alamkanak.weekview.WeekViewEvent;
 import java.security.Signature;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 public abstract class BaseView extends AppCompatActivity implements WeekView.EventClickListener, MonthLoader.MonthChangeListener, WeekView.EventLongPressListener, WeekView.EmptyViewLongPressListener {
@@ -57,6 +58,19 @@ public abstract class BaseView extends AppCompatActivity implements WeekView.Eve
 
         // Set long press listener for empty view
         mWeekView.setEmptyViewLongPressListener(this);
+
+
+//        mWeekView.setFirstDayOfWeek(Calendar.MONDAY);
+//        Date date = new Date();
+//        Calendar cal = Calendar.getInstance();
+//        cal.setTime(date);
+
+
+
+//        int dayInWeek = date.get(Calendar.DAY_OF_WEEK);
+//
+//        mWeekView.goToDate();
+//        mWeekView.goToHour(12);
 
         // Set up a date time interpreter to interpret how the date and time will be formatted in
         // the week view. This is optional.
@@ -126,9 +140,36 @@ public abstract class BaseView extends AppCompatActivity implements WeekView.Eve
                 // All android api level do not have a standard way of getting the first letter of
                 // the week day name. Hence we get the first char programmatically.
                 // Details: http://stackoverflow.com/questions/16959502/get-one-letter-abbreviation-of-week-day-of-a-date-in-java#answer-16959657
-                if (shortDate)
-                    weekday = String.valueOf(weekday.charAt(0));
-                return weekday.toUpperCase() + format.format(date.getTime());
+
+                int dayOfWeek = date.get(Calendar.DAY_OF_WEEK);
+                String day = "";
+                switch((dayOfWeek - 2) % 7) {
+                    case 0:
+                        day = "PON";
+                        break;
+                    case 1:
+                        day = "UTO";
+                        break;
+                    case 2:
+                        day = "SRE";
+                        break;
+                    case 3:
+                        day = "ČET";
+                        break;
+                    case 4:
+                        day = "PET";
+                        break;
+                    case 5:
+                        day = "SUB";
+                        break;
+                    default:
+                        day = "NED";
+                        break;
+                }
+                return day;
+//                if (shortDate)
+//                    weekday = String.valueOf(weekday.charAt(0));
+//                return weekday.toUpperCase() + format.format(date.getTime());
             }
 
             @Override
@@ -180,12 +221,12 @@ public abstract class BaseView extends AppCompatActivity implements WeekView.Eve
 
     @Override
     public void onEventLongPress(WeekViewEvent event, RectF eventRect) {
-        Toast.makeText(this, "Long pressed event: " + event.getName(), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "Long pressed event: " + event.getName(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onEmptyViewLongPress(Calendar time) {
-        Toast.makeText(this, "Empty view long pressed: " + getEventTitle(time), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "Empty view long pressed: " + getEventTitle(time), Toast.LENGTH_SHORT).show();
     }
 
     public WeekView getWeekView() {

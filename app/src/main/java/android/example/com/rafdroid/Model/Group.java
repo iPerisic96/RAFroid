@@ -7,7 +7,7 @@ public class Group implements Serializable {
 
     private String name;
     private int numberOfStudents;
-    private ArrayList<Students> students;
+    private ArrayList<Student> students;
 
     public Group(String name) {
         this.name = name;
@@ -29,11 +29,11 @@ public class Group implements Serializable {
         this.numberOfStudents = numberOfStudents;
     }
 
-    public ArrayList<Students> getStudents() {
+    public ArrayList<Student> getStudents() {
         return students;
     }
 
-    public void setStudents(ArrayList<Students> students) {
+    public void setStudents(ArrayList<Student> students) {
         this.students = students;
     }
 }

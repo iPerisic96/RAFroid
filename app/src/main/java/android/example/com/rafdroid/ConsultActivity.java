@@ -1,6 +1,7 @@
 package android.example.com.rafdroid;
 
 import android.example.com.rafdroid.Model.Class;
+import android.example.com.rafdroid.Model.Consultation;
 
 import com.alamkanak.weekview.WeekViewEvent;
 
@@ -17,7 +18,7 @@ public class ConsultActivity extends BaseView {
         List<WeekViewEvent> events = new ArrayList<WeekViewEvent>();
 
         Singleton singleton = Singleton.Instance();
-        ArrayList<Class> classes = singleton.getAllClassesForGroup("103");
+        ArrayList<Consultation> consultation = singleton.getAllConsultations();
         Calendar calendarPom = GregorianCalendar.getInstance();
 
         Calendar startTime = Calendar.getInstance();
@@ -28,34 +29,35 @@ public class ConsultActivity extends BaseView {
         int sat, minut;
 
         int id = 0;
-        for(Class cl : classes){
+        for(Consultation cons : consultation){
 
-            sat = cl.getStart_time().getHours();
-            minut = cl.getStart_time().getMinutes();
+            sat = cons.getStart_time().getHours();
+            minut = cons.getStart_time().getMinutes();
 
             startTime = Calendar.getInstance();
             startTime.set(Calendar.HOUR_OF_DAY, sat);
             startTime.set(Calendar.MINUTE, minut);
             startTime.set(Calendar.MONTH, newMonth-1);
             startTime.set(Calendar.YEAR, newYear);
-            startTime.set(Calendar.DAY_OF_MONTH, startTime.get(Calendar.DAY_OF_MONTH) + cl.getDayInWeek());
+//            startTime.set(Calendar.DAY_OF_MONTH, startTime.get(Calendar.DAY_OF_MONTH));
+            startTime.set(Calendar.DAY_OF_WEEK, cons.getDayInWeek() + 1);
 
 
-            sat = cl.getEnd_time().getHours();
-            minut = cl.getEnd_time().getMinutes();
+            sat = cons.getEnd_time().getHours();
+            minut = cons.getEnd_time().getMinutes();
 
             endTime = (Calendar) startTime.clone();
             endTime.set(Calendar.HOUR_OF_DAY, sat);
             endTime.set(Calendar.MINUTE, minut);
             endTime.set(Calendar.MONTH, newMonth-1);
 
-            event = new WeekViewEvent(cl.getId(), cl.getSubject().getName() + "\n" + cl.getTypeClass(), startTime, endTime);
+            event = new WeekViewEvent(cons.getId(), cons.getClass_name() + "\n" + cons.getProfessor().getName(), startTime, endTime);
 
-            if (cl.getTypeClass().equalsIgnoreCase("predavanja")) {
-                event.setColor(getResources().getColor(R.color.event_color_02));
-            } else if (cl.getTypeClass().equalsIgnoreCase("vezbe"))
-                event.setColor(getResources().getColor(R.color.event_color_03));
-            else
+//            if (cons.getTypeClass().equalsIgnoreCase("predavanja")) {
+//                event.setColor(getResources().getColor(R.color.event_color_02));
+//            } else if (cons.getTypeClass().equalsIgnoreCase("vezbe"))
+//                event.setColor(getResources().getColor(R.color.event_color_03));
+//            else
                 event.setColor(getResources().getColor(R.color.event_color_01));
             events.add(event);
 
