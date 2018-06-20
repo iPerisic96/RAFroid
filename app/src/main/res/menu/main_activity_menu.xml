@@ -3,9 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_search"
-        app:showAsAction="ifRoom|collapseActionView"
-        android:title="@string/action_search"
-        app:actionViewClass="android.support.v7.widget.SearchView"
-        android:icon="@drawable/ic_search_24dp" />
+        android:id="@+id/month_calendar"
+        android:icon="@drawable/ic_date_range"
+        android:title="Kalendar nastave"
+        app:showAsAction="ifRoom|collapseActionView"/>
 </menu>
