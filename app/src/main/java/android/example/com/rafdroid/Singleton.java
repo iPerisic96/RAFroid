@@ -389,6 +389,14 @@ public class Singleton {
         return null;
     }
 
+    public Consultation getConsultationById(int id){
+        for(Consultation cons : consultations){
+            if(cons.getId() == id)
+                return cons;
+        }
+        return null;
+    }
+
     public String getDayType(Date current){
         String type = "";
 
@@ -441,4 +449,6 @@ public class Singleton {
     public ArrayList<Consultation> getAllConsultations() {
         return consultations;
     }
+
+
 }
