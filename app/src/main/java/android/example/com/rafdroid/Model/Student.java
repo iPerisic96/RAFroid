@@ -2,12 +2,12 @@ package android.example.com.rafdroid.Model;
 
 import java.io.Serializable;
 
-public class Students implements Serializable {
+public class Student implements Serializable {
 
     private String name;
     private String index;
 
-    public Students(String name, String index) {
+    public Student(String name, String index) {
         this.name = name;
         this.index = index;
     }
