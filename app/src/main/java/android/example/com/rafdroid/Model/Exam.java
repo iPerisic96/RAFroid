@@ -1,5 +1,6 @@
 package android.example.com.rafdroid.Model;
 
+import java.util.Calendar;
 import java.util.Date;
 
 public class Exam {
@@ -76,5 +77,39 @@ public class Exam {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getDayName(){
+
+        Calendar pomCal = Calendar.getInstance();
+        pomCal.setTime(start_time);
+        int dayOfWeek = pomCal.get(Calendar.DAY_OF_WEEK);
+
+        String day = "";
+        switch((dayOfWeek + 2) % 7) {
+            case 0:
+                day = "PON";
+                break;
+            case 1:
+                day = "UTO";
+                break;
+            case 2:
+                day = "SRE";
+                break;
+            case 3:
+                day = "ČET";
+                break;
+            case 4:
+                day = "PET";
+                break;
+            case 5:
+                day = "SUB";
+                break;
+            default:
+                day = "NED";
+                break;
+        }
+
+        return  day;
     }
 }

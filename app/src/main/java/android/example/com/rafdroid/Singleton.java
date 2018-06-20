@@ -239,6 +239,7 @@ public class Singleton {
                 }
 
                 exams.add(new Exam(i, name, start_time, end_time, classroom, professor, type));
+                exams.get(i).getDayName();
             }
 
         } catch (JSONException e) {

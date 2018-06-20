@@ -98,6 +98,7 @@ public class KolokvijumiActivity extends AppCompatActivity{
         mRecycleView.setHasFixedSize(true);
         mRecycleView.setLayoutManager(new LinearLayoutManager(this));
         mRecycleView.setAdapter(new DummyCardAdapter(exams, this));
+
     }
 
     @Override
