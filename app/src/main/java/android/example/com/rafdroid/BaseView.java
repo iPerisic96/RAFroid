@@ -1,5 +1,6 @@
 package android.example.com.rafdroid;
 
+import android.content.Context;
 import android.example.com.rafdroid.Model.Class;
 import android.graphics.RectF;
 import android.os.Bundle;
@@ -24,7 +25,7 @@ import java.util.Locale;
 public abstract class BaseView extends AppCompatActivity implements WeekView.EventClickListener, MonthLoader.MonthChangeListener, WeekView.EventLongPressListener, WeekView.EmptyViewLongPressListener {
 
     private TextView mTextMessage;
-
+    private BaseView mContext;
     private static final int TYPE_DAY_VIEW = 1;
     private static final int TYPE_THREE_DAY_VIEW = 2;
     private static final int TYPE_WEEK_VIEW = 3;
@@ -35,6 +36,8 @@ public abstract class BaseView extends AppCompatActivity implements WeekView.Eve
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_kalendar_view);
+
+        mContext = this;
 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -83,11 +86,16 @@ public abstract class BaseView extends AppCompatActivity implements WeekView.Eve
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                return false;
+
+                Singleton.Instance().setSearchQuery(query);
+
+                return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
+
+
                 return false;
             }
         });

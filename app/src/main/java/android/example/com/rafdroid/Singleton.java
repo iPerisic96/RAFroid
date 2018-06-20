@@ -46,6 +46,8 @@ public class Singleton {
     private int calendar_version;
     private int consultations_version;
 
+    private String searchQuery;
+
 
 
     private Singleton(){
@@ -60,6 +62,7 @@ public class Singleton {
         exams = new ArrayList<>();
         days = new ArrayList<>();
         consultations = new ArrayList<>();
+        searchQuery = "";
 
 //        try {
 //
@@ -326,6 +329,10 @@ public class Singleton {
     }
 
     public ArrayList<Class> getAllSearchResults(String search){
+
+        if(search.isEmpty())
+            return  classes;
+
         ArrayList<Class> currentClasses = new ArrayList();
 
         for(Class cs : classes){
@@ -451,5 +458,11 @@ public class Singleton {
         return consultations;
     }
 
+    public String getSearchQuery() {
+        return searchQuery;
+    }
 
+    public void setSearchQuery(String searchQuery) {
+        this.searchQuery = searchQuery;
+    }
 }
