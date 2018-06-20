@@ -1,7 +1,5 @@
 package android.example.com.rafdroid;
 
-import android.app.Activity;
-import android.example.com.rafdroid.Model.Class;
 import android.example.com.rafdroid.Model.Exam;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,8 +12,6 @@ import android.view.MenuItem;
 import com.alamkanak.weekview.WeekViewEvent;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 public class KolokvijumiActivity extends AppCompatActivity{
@@ -97,7 +93,7 @@ public class KolokvijumiActivity extends AppCompatActivity{
         RecyclerView mRecycleView = (RecyclerView) findViewById(R.id.dummyCards);
         mRecycleView.setHasFixedSize(true);
         mRecycleView.setLayoutManager(new LinearLayoutManager(this));
-        mRecycleView.setAdapter(new DummyCardAdapter(exams, this));
+        mRecycleView.setAdapter(new KlkCardAdapter(exams, this));
 
     }
 

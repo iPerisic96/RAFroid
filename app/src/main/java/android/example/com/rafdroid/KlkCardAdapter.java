@@ -14,13 +14,13 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class DummyCardAdapter extends RecyclerView.Adapter<DummyCardAdapter.ViewHolder> {
+public class KlkCardAdapter extends RecyclerView.Adapter<KlkCardAdapter.ViewHolder> {
 
     private static ArrayList<Exam> mData;
     private Context context;
     Dialog myDialog;
 
-    public DummyCardAdapter(ArrayList<Exam> mData, Context context){
+    public KlkCardAdapter(ArrayList<Exam> mData, Context context){
         this.mData = new ArrayList<>();
         for(Exam e: mData){
             if(e.getType().equalsIgnoreCase("curriculum")){
@@ -48,27 +48,33 @@ public class DummyCardAdapter extends RecyclerView.Adapter<DummyCardAdapter.View
         //todo NAPUNI GA OVDE PODACIMA
 //        final int pos = position;
 //        //Glide.with(context).asBitmap().load(mData.get(position).getImgUrl()).into(holder.getImage());
-//        holder.getExamDate().setText(mData.get(position).get() + " " + mData.get(position).getLastName());
-//        holder.getItemContact().setText(mData.get(position).getPhone());
-//        myDialog = new Dialog(context);
-//        myDialog.setContentView(R.layout.dialog_contact);
-//        holder.getLayout().setOnClickListener(new View.OnClickListener(){
-//
-//            @Override
-//            public void onClick(View view) {
-////                Toast.makeText(mContext, "Test click " + String.valueOf(vHolder.getAdapterPosition()), Toast.LENGTH_SHORT).show();
-//                TextView dialogName = (TextView) myDialog.findViewById(R.id.dialog_name);
-//                TextView dialogPhone = (TextView) myDialog.findViewById(R.id.dialog_phone);
-//                ImageView dialogImage = (ImageView) myDialog.findViewById(R.id.dialog_image);
-//                dialogName.setText(mData.get(holder.getAdapterPosition()).getFirstName() + " " + mData.get(holder.getAdapterPosition()).getLastName());
-//                dialogPhone.setText(mData.get(holder.getAdapterPosition()).getPhone());
-////        dialogImage.setImageDrawable(mData.get(vHolder.getAdapterPosition()).getImage());
-//                dialogImage.setImageResource(R.drawable.ic_person);
-//
-//                myDialog.show();
+        holder.getExamDate().setText(mData.get(position).getDayName()+" "+mData.get(position).getStart_time().getDay() +"." +mData.get(position).getStart_time().getMonth() + ".");
+        holder.getExamName().setText(mData.get(position).getName());
+        holder.getExamTime().setText("Ucionica: " + mData.get(position).getClassroom().getName() + ", " + mData.get(position).getStart_time().getHours() + ":" + mData.get(position).getStart_time().getMinutes() +
+                "0-" +  mData.get(position).getEnd_time().getHours() + ":00h");
+        myDialog = new Dialog(context);
+        myDialog.setContentView(R.layout.dialog_class);
+        holder.getLayout().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-//            }
-//        });
+                TextView tv_className = (TextView) myDialog.findViewById(R.id.class_name);
+                TextView tv_classType = (TextView) myDialog.findViewById(R.id.class_type);
+                TextView tv_classTime = (TextView) myDialog.findViewById(R.id.class_time); //ucionica, vreme (U2, 12:15-14:00h)
+                TextView tv_classGroup = (TextView) myDialog.findViewById(R.id.class_group);
+                TextView tv_classProf = (TextView) myDialog.findViewById(R.id.class_prof);
+
+                tv_className.setText(mData.get(holder.getAdapterPosition()).getName());
+                tv_classType.setText(mData.get(holder.getAdapterPosition()).getType());
+                tv_classTime.setText("Ucionica: " +mData.get(holder.getAdapterPosition()).getClassroom().getName() + ", " + mData.get(holder.getAdapterPosition()).getStart_time().getHours() + ":" + mData.get(holder.getAdapterPosition()).getStart_time().getMinutes() +
+                        "0-" +  mData.get(holder.getAdapterPosition()).getEnd_time().getHours() + ":00h");
+                tv_classGroup.setText(mData.get(holder.getAdapterPosition()).getDayName()+" "+mData.get(holder.getAdapterPosition()).getStart_time().getDay() +"." +mData.get(holder.getAdapterPosition()).getStart_time().getMonth() + ".");
+                tv_classProf.setText(mData.get(holder.getAdapterPosition()).getProfessor().getName());
+
+                myDialog.setCancelable(true);
+                myDialog.show();
+            }
+        });
 
     }
 

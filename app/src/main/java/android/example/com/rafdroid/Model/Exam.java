@@ -86,7 +86,7 @@ public class Exam {
         int dayOfWeek = pomCal.get(Calendar.DAY_OF_WEEK);
 
         String day = "";
-        switch((dayOfWeek + 2) % 7) {
+        switch((dayOfWeek + 5) % 7) {
             case 0:
                 day = "PON";
                 break;
