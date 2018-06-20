@@ -28,7 +28,6 @@ import java.util.Locale;
 public abstract class BaseView extends AppCompatActivity implements WeekView.EventClickListener, MonthLoader.MonthChangeListener, WeekView.EventLongPressListener, WeekView.EmptyViewLongPressListener {
 
     private TextView mTextMessage;
-    private BaseView mContext;
     private static final int TYPE_DAY_VIEW = 1;
     private static final int TYPE_WEEK_VIEW = 3;
     private int mWeekViewType = TYPE_WEEK_VIEW;
@@ -38,8 +37,6 @@ public abstract class BaseView extends AppCompatActivity implements WeekView.Eve
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_kalendar_view);
-
-        mContext = this;
 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -55,27 +52,14 @@ public abstract class BaseView extends AppCompatActivity implements WeekView.Eve
         mWeekView.setMonthChangeListener(this);
 
         // Set long press listener for events.
-        mWeekView.setEventLongPressListener(this);
+//        mWeekView.setEventLongPressListener(this);
 
         // Set long press listener for empty view
-        mWeekView.setEmptyViewLongPressListener(this);
-
-
-//        mWeekView.setFirstDayOfWeek(Calendar.MONDAY);
-//        Date date = new Date();
-//        Calendar cal = Calendar.getInstance();
-//        cal.setTime(date);
-
-
-
-//        int dayInWeek = date.get(Calendar.DAY_OF_WEEK);
-//
-//        mWeekView.goToDate();
-//        mWeekView.goToHour(12);
+//        mWeekView.setEmptyViewLongPressListener(this);
 
         // Set up a date time interpreter to interpret how the date and time will be formatted in
         // the week view. This is optional.
-        setupDateTimeInterpreter(false);
+        setupDateTimeInterpreter(true);
 
     }
 
@@ -84,6 +68,7 @@ public abstract class BaseView extends AppCompatActivity implements WeekView.Eve
         getMenuInflater().inflate(R.menu.main, menu);
         MenuItem searchItem = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView.setQuery("", true);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -96,7 +81,7 @@ public abstract class BaseView extends AppCompatActivity implements WeekView.Eve
                 cal.set(Calendar.YEAR, 2018);
                 mWeekView.goToDate(cal);
 
-                return true;
+                return false;
             }
 
             @Override
@@ -109,7 +94,7 @@ public abstract class BaseView extends AppCompatActivity implements WeekView.Eve
                 cal.set(Calendar.YEAR, 2018);
                 mWeekView.goToDate(cal);
 
-                return true;
+                return false;
             }
         });
         return true;
