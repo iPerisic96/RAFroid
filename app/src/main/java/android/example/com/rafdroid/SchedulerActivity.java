@@ -1,9 +1,9 @@
 package android.example.com.rafdroid;
 
+import android.example.com.rafdroid.Model.Day;
 import android.example.com.rafdroid.Model.Exam;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
@@ -14,10 +14,10 @@ import com.alamkanak.weekview.WeekViewEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-public class IspitiActivity extends AppCompatActivity{
+public class SchedulerActivity extends AppCompatActivity {
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_kolokvijumi);
 
@@ -30,13 +30,13 @@ public class IspitiActivity extends AppCompatActivity{
 //        String type = "CURRICULUM";
 //
         Singleton singleton = Singleton.Instance();
-        ArrayList<Exam> exams = singleton.getExams();
+        ArrayList<Day> days = singleton.getDays();
 
 
         RecyclerView mRecycleView = (RecyclerView) findViewById(R.id.dummyCards);
         mRecycleView.setHasFixedSize(true);
         mRecycleView.setLayoutManager(new LinearLayoutManager(this));
-        mRecycleView.setAdapter(new ExamCardAdapter(exams, this));
+        mRecycleView.setAdapter(new SchedulerAdapter(days, this));
 
     }
 

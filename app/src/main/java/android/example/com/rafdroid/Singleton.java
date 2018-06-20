@@ -477,4 +477,8 @@ public class Singleton {
     public void setTrenutnoOtvoreni(String trenutnoOtvoreni) {
         this.trenutnoOtvoreni = trenutnoOtvoreni;
     }
+
+    public ArrayList<Day> getDays() {
+        return days;
+    }
 }

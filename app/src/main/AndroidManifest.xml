@@ -33,6 +33,7 @@
         <activity
             android:name=".ConsultActivity"
             android:label="Konsultacije" />
+        <activity android:name=".SchedulerActivity"></activity>
     </application>
 
 </manifest>
