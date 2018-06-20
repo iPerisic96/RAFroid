@@ -50,7 +50,13 @@ public class ExamCardAdapter  extends RecyclerView.Adapter<ExamCardAdapter.ViewH
         //todo NAPUNI GA OVDE PODACIMA
 //        final int pos = position;
 //        //Glide.with(context).asBitmap().load(mData.get(position).getImgUrl()).into(holder.getImage());
-        holder.getExamDate().setText(mData.get(position).getDayName()+" "+mData.get(position).getStart_time().getDay() +"." +mData.get(position).getStart_time().getMonth() + ".");
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(mData.get(position).getStart_time());
+
+        int dan = cal.get(Calendar.DAY_OF_MONTH);
+        int mesec = cal.get(Calendar.MONTH) + 1;
+
+        holder.getExamDate().setText(mData.get(position).getDayName()+" "+dan +"." + mesec + ".");
         holder.getExamName().setText(mData.get(position).getName());
         holder.getExamTime().setText("Ucionica: " + mData.get(position).getClassroom().getName() + ", " + mData.get(position).getStart_time().getHours() + ":" + mData.get(position).getStart_time().getMinutes() +
                 "0-" +  mData.get(position).getEnd_time().getHours() + ":00h");

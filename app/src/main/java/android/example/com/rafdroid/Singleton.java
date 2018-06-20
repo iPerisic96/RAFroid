@@ -47,7 +47,6 @@ public class Singleton {
     private int consultations_version;
 
     private String searchQuery;
-
     private String trenutnoOtvoreni;
 
 
@@ -204,7 +203,7 @@ public class Singleton {
                 } catch (ParseException e) {
                 }
 
-            days.add(new Day(dateFrom, dateTo, type));
+            days.add(new Day(dateFrom, dateTo, type, start, end));
             }
 
         } catch (JSONException e) {
@@ -333,7 +332,7 @@ public class Singleton {
 
     public ArrayList<Class> getAllSearchResults(String search){
 
-        if(search.isEmpty())
+        if(search == null || search.isEmpty() || search.equals(""))
             return  classes;
 
         search = search.toUpperCase();
@@ -481,4 +480,5 @@ public class Singleton {
     public ArrayList<Day> getDays() {
         return days;
     }
+
 }

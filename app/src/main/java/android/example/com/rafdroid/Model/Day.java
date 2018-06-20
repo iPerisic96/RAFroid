@@ -7,11 +7,31 @@ public class Day {
     private Date start_date;
     private Date end_date;
     private String type;
+    private String startDateString;
+    private String endDateString;
 
-    public Day(Date start_date, Date end_date, String type) {
+    public Day(Date start_date, Date end_date, String type, String startDateString, String endDateString) {
         this.start_date = start_date;
         this.end_date = end_date;
         this.type = type;
+        this.startDateString = startDateString;
+        this.endDateString = endDateString;
+    }
+
+    public String getStartDateString() {
+        return startDateString;
+    }
+
+    public void setStartDateString(String startDateString) {
+        this.startDateString = startDateString;
+    }
+
+    public String getEndDateString() {
+        return endDateString;
+    }
+
+    public void setEndDateString(String endDateString) {
+        this.endDateString = endDateString;
     }
 
     public Date getStart_date() {
