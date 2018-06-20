@@ -333,6 +333,7 @@ public class Singleton {
         if(search.isEmpty())
             return  classes;
 
+        search = search.toUpperCase();
         ArrayList<Class> currentClasses = new ArrayList();
 
         for(Class cs : classes){
@@ -342,12 +343,12 @@ public class Singleton {
                 currentClasses.add(cs);
 
             //NAZIV PROFESORA
-            else if (cs.getProfesor().getName().contains(search))
+            else if (cs.getProfesor().getName().toUpperCase().contains(search))
                 currentClasses.add(cs);
 
             else{
                 for(Group gr : cs.getGroups())
-                    if (gr.getName().contains(search))
+                    if (gr.getName().toUpperCase().contains(search))
                         currentClasses.add(cs);
             }
         }

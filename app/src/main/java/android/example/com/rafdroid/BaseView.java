@@ -28,9 +28,8 @@ public abstract class BaseView extends AppCompatActivity implements WeekView.Eve
     private TextView mTextMessage;
     private BaseView mContext;
     private static final int TYPE_DAY_VIEW = 1;
-    private static final int TYPE_THREE_DAY_VIEW = 2;
     private static final int TYPE_WEEK_VIEW = 3;
-    private int mWeekViewType = TYPE_THREE_DAY_VIEW;
+    private int mWeekViewType = TYPE_WEEK_VIEW;
     private WeekView mWeekView;
 
     @Override
@@ -89,6 +88,11 @@ public abstract class BaseView extends AppCompatActivity implements WeekView.Eve
             public boolean onQueryTextSubmit(String query) {
 
                 Singleton.Instance().setSearchQuery(query);
+                Calendar cal = Calendar.getInstance();
+                cal.set(Calendar.DAY_OF_MONTH, 22);
+                cal.set(Calendar.MONTH, 9);
+                cal.set(Calendar.YEAR, 2018);
+                mWeekView.goToDate(cal);
 
                 return true;
             }
@@ -96,8 +100,14 @@ public abstract class BaseView extends AppCompatActivity implements WeekView.Eve
             @Override
             public boolean onQueryTextChange(String newText) {
 
+                Singleton.Instance().setSearchQuery(newText);
+                Calendar cal = Calendar.getInstance();
+                cal.set(Calendar.DAY_OF_MONTH, 22);
+                cal.set(Calendar.MONTH, 9);
+                cal.set(Calendar.YEAR, 2018);
+                mWeekView.goToDate(cal);
 
-                return false;
+                return true;
             }
         });
         return true;
