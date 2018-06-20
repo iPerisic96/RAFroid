@@ -43,14 +43,24 @@ public class SchedulerAdapter extends RecyclerView.Adapter<SchedulerAdapter.View
     public void onBindViewHolder(@NonNull final SchedulerAdapter.ViewHolder holder, int position) {
 
         //todo NAPUNI GA OVDE PODACIMA
-//        final int pos = position;
-//        //Glide.with(context).asBitmap().load(mData.get(position).getImgUrl()).into(holder.getImage());
-//        holder.getExamDate().setText(mData.get(position).getDayName()+" "+mData.get(position).getStart_time().getDay() +"." +mData.get(position).getStart_time().getMonth() + ".");
-//        holder.getExamName().setText(mData.get(position).getName());
-//        holder.getExamTime().setText("Ucionica: " + mData.get(position).getClassroom().getName() + ", " + mData.get(position).getStart_time().getHours() + ":" + mData.get(position).getStart_time().getMinutes() +
-//                "0-" +  mData.get(position).getEnd_time().getHours() + ":00h");
-//        myDialog = new Dialog(context);
-      //  myDialog.setContentView(R.layout.dialog_class);
+        final int pos = position;
+        //Glide.with(context).asBitmap().load(mData.get(position).getImgUrl()).into(holder.getImage());
+        holder.getExamDate().setText(mData.get(position).getStartDateString() + " - " + mData.get(position).getEndDateString());
+        holder.getExamName().setText(mData.get(position).getType());
+        holder.getExamTime().setText("");
+        myDialog = new Dialog(context);
+        myDialog.setContentView(R.layout.dialog_class);
+
+        if (mData.get(position).getType().equalsIgnoreCase("exams")){
+            holder.getLayout().setBackgroundColor(context.getResources().getColor(R.color.event_color_02));
+        } else if (mData.get(position).getType().equalsIgnoreCase("curriculums")){
+            holder.getLayout().setBackgroundColor(context.getResources().getColor(R.color.event_color_04));
+        } else if (mData.get(position).getType().equalsIgnoreCase("holiday")){
+            holder.getLayout().setBackgroundColor(context.getResources().getColor(R.color.event_color_03));
+        } else {
+            holder.getLayout().setBackgroundColor(context.getResources().getColor(R.color.event_color_01));
+        }
+
 //        holder.getLayout().setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
