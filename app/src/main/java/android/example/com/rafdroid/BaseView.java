@@ -4,6 +4,7 @@ import android.content.Context;
 import android.example.com.rafdroid.Model.Class;
 import android.graphics.RectF;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
@@ -107,9 +108,6 @@ public abstract class BaseView extends AppCompatActivity implements WeekView.Eve
         int id = item.getItemId();
         setupDateTimeInterpreter(id == R.id.action_week_view);
         switch (id){
-            case R.id.action_today:
-                mWeekView.goToToday();
-                return true;
             case R.id.action_day_view:
                 if (mWeekViewType != TYPE_DAY_VIEW) {
                     item.setChecked(!item.isChecked());
@@ -120,6 +118,7 @@ public abstract class BaseView extends AppCompatActivity implements WeekView.Eve
                     mWeekView.setColumnGap((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, getResources().getDisplayMetrics()));
                     mWeekView.setTextSize((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12, getResources().getDisplayMetrics()));
                     mWeekView.setEventTextSize((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12, getResources().getDisplayMetrics()));
+                    mWeekView.setXScrollingSpeed(1);
                 }
                 return true;
             case R.id.action_week_view:
@@ -132,8 +131,13 @@ public abstract class BaseView extends AppCompatActivity implements WeekView.Eve
                     mWeekView.setColumnGap((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, getResources().getDisplayMetrics()));
                     mWeekView.setTextSize((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 10, getResources().getDisplayMetrics()));
                     mWeekView.setEventTextSize((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 10, getResources().getDisplayMetrics()));
+
                     mWeekView.setXScrollingSpeed(0);
-                    mWeekView.setFirstDayOfWeek(2);
+                    Calendar cal = Calendar.getInstance();
+                    cal.set(Calendar.DAY_OF_MONTH, 22);
+                    cal.set(Calendar.MONTH, 9);
+                    cal.set(Calendar.YEAR, 2018);
+                    mWeekView.goToDate(cal);
                 }
                 return true;
             case android.R.id.home:
